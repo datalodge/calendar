@@ -60,6 +60,32 @@ app.post('/api/bookings', (req, res) => {
   });
 });
 
+
+
+app.get('/api/bookings/info', (req, res) => {
+  console.log('get req sent')
+  res.status(200).send()
+})
+
+app.post('/api/bookings/info', (req, res) => {
+  console.log('get req sent')
+  res.status(200).send()
+})
+
+
+app.put('/api/bookings', (req, res) => {
+  //Give a to and from date needs to change the booking 
+  console.log('put req worked')
+  res.status(303).send();
+})
+
+
+app.delete('/api/bookings', (req, res) => {
+  console.log('delete req worked');
+  res.status(200).send();
+})
+
+
 app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);
 });

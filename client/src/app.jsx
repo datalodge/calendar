@@ -28,6 +28,7 @@ export default class App extends React.Component {
       .then(response => response.json())
       .then(JSONresp => JSONresp)
       .then((calendar) => {
+        console.log(calendar, 'this is the calendar')
         this.setState({
           calendar: calendar,
         });
@@ -46,6 +47,7 @@ export default class App extends React.Component {
       },
     })
       .then((response) => {
+        console.log(response, 'this is the response')
         return response.json();
       })
   }
