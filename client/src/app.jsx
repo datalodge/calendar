@@ -18,13 +18,10 @@ export default class App extends React.Component {
        } else {
         window.location = window.location.href + "?100";
        }
-
-    fetch('http://ec2-18-191-62-37.us-east-2.compute.amazonaws.com/api/bookings/' + homeId, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
+      //  let endpoint = 'http://localhost:3002/api/bookings/' + window.location.pathname +
+      let endpoint = 'http://localhost:3002/api/bookings/'
+      console.log(endpoint + homeId)
+    fetch(endpoint + homeId)
       .then(response => response.json())
       .then(JSONresp => JSONresp)
       .then((calendar) => {

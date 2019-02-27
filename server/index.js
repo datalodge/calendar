@@ -50,14 +50,16 @@ app.get('/api/pricing/:homeId', (req, res) => {
 
 app.post('/api/bookings', (req, res) => {
   const booking = req.body.booking;
-  console.log(booking);
-  db.createBooking(booking, (err) => {
-    if (err) {
-      // send error
-    } else {
-      res.send('success');
-    }
-  });
+  // console.log('hi');
+  // res.status(400).send();
+  res.status(200).send();
+  // db.createBooking(booking, (err) => {
+  //   if (err) {
+  //     // send error
+  //   } else {
+  //     res.send('success');
+  //   }
+  // });
 });
 
 
