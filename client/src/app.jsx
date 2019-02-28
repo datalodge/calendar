@@ -22,7 +22,7 @@ export default class App extends React.Component {
       let endpoint = 'http://localhost:3002/api/bookings/'
       console.log(endpoint + homeId)
     fetch(endpoint + homeId)
-      .then(response => response.json())
+      .then(response =>  response.json())
       .then(JSONresp => JSONresp)
       .then((calendar) => {
         console.log(calendar, 'this is the calendar')
