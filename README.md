@@ -52,7 +52,7 @@ POST
 
 URL Params 
 
-/api/bookings/:homeId
+/api/bookings/
 
 Required:
 

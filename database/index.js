@@ -36,8 +36,33 @@ const createBooking = (booking, callback) => {
   });
 };
 
+const changeBooking = (bookingId, callback) => {
+  const changedQuery = `UPDATE bookings SET user_id = ${booking.userId}, check_in = ${booking.checkIn}, check_out = ${booking.checkOut}, price_per_night = ${booking.price}, no_guests = ${booking.guest}  WHERE booking_id = ${booking.bookingId}` 
+  connection.query(changedQuery, (err, booking) => {
+    if (err) {
+      callback(err, null)
+      return;
+    } else {
+      callback(null, booking)
+    }
+  })
+}
+
+const deleteBooking = (bookingId, callback) => {
+  const deleteQuery = `DELETE FROM booking where booking_id = ${bookingId.home}`
+  connection.query(deleteQuery, (err, booking) => {
+    if (err){
+      callback(err, null)
+      return;
+    }
+    callback(null, booking)
+  })
+}
+
 module.exports = {
   getBookingsById,
   getPricingById,
   createBooking,
+  changeBooking,
+  deleteBooking
 };
