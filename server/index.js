@@ -50,40 +50,33 @@ app.get('/api/pricing/:homeId', (req, res) => {
 
 app.post('/api/bookings', (req, res) => {
   const booking = req.body.booking;
-  // console.log('hi');
-  // res.status(400).send();
-  res.status(200).send();
-  // db.createBooking(booking, (err) => {
-  //   if (err) {
-  //     // send error
-  //   } else {
-  //     res.send('success');
-  //   }
-  // });
+  db.createBooking(booking, (err) => {
+    if (err) {
+      res.status(400).end()
+    } else {
+      res.status(200).send('success');
+    }
+  });
 });
 
 
-
-app.get('/api/bookings/info', (req, res) => {
-  console.log('get req sent')
-  res.status(200).send()
-})
-
-app.post('/api/bookings/info', (req, res) => {
-  console.log('get req sent')
-  res.status(200).send()
-})
-
-
 app.put('/api/bookings', (req, res) => {
-  //Give a to and from date needs to change the booking 
-  console.log('put req worked')
-  res.status(303).send();
+  db.changeBooking(booking, (err) => {
+    if (err){
+      res.status(400).end()
+    }
+    res.status(303).send();
+  })
 })
 
 
 app.delete('/api/bookings', (req, res) => {
-  console.log('delete req worked');
+  db.deleteBooking(houseId, (err) =>{
+    if (err){
+      res.status(400).end()
+    }
+    res.status()
+  })
   res.status(200).send();
 })
 
