@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const expressStaticGzip = require('express-static-gzip');
 
-const db = require('../database');
+const db = require('../database/index.js');
 const { cal } = require('./calendarHelper');
 
 const app = express();
@@ -22,6 +22,8 @@ app.use(function(req, res, next) {
   next();
 });
 
+
+
 app.get('/api/bookings/:homeId', (req, res) => {
   db.getBookingsById(req.params.homeId, (err, bookings) => {
     if (err) {
@@ -38,19 +40,10 @@ app.get('/api/bookings/:homeId', (req, res) => {
   });
 });
 
-app.get('/api/pricing/:homeId', (req, res) => {
-  db.getPricingById(req.params.homeId, (err, pricing) => {
-    if (err) {
-      // send error
-    } else {
-      res.json(pricing);
-    }
-  });
-});
 
 app.post('/api/bookings', (req, res) => {
   const booking = req.body.booking;
-  db.createBooking(booking, (err) => {
+  db.postingNewDate(booking, (err) => {
     if (err) {
       res.status(400).end()
     } else {
