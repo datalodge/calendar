@@ -1,23 +1,23 @@
 const moment = require('moment');
-const fs = require('fs')
-const ws = fs.createWriteStream('data.csv')
-
+const fs = require('fs');
+const ws = fs.createWriteStream('data.csv');
+const uuidv1 = require('uuid/v1');
 
 let randomDays = function(){
   return Math.floor(Math.random() * 10) + 1;
 }
 
 let randomUser = function(){
-  return Math.round(Math.random()*500000 + 1)
+  return Math.round(Math.random()*500000 + 1);
 }
 
 let randomBookingGenerator = function(){
-  return Math.floor(Math.random() * 5)
+  return Math.floor(Math.random() * 5) + 1;
 }
 
 let string = '';
-ws.write('homeId,userId,checkIn,checkOut,price,guest \n');
-for (let i = 1; i < 1000001; i++) {
+ws.write('UUID,homeId,userId,checkIn,checkOut,price,guest \n');
+for (let i = 1; i <= 10000000; i++) {
   let randomBooking = randomBookingGenerator()
   let check_in = moment().clone().add(randomDays(), 'days');
   let check_out = null;
@@ -28,7 +28,7 @@ for (let i = 1; i < 1000001; i++) {
     let formatCheckOut = check_out.format('YYYY/MM/DD');
     let userId = randomUser();
     let no_guests = Math.round(Math.random()*4 + 1);     
-    string += (`${i}, ${userId}, ${formatCheckIn}, ${formatCheckOut}, ${price_per_night}, ${no_guests} \n`);
+    string += (`${uuidv1()}, ${i}, ${userId}, ${formatCheckIn}, ${formatCheckOut}, ${price_per_night}, ${no_guests} \n`);
     check_in = check_out.clone().add(randomDays(), 'days')
   }
   if (i % 100000 === 0){

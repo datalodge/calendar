@@ -1,68 +1,38 @@
-const mysql = require('mysql');
-const mysqlConfig = require('./sql-config.js');
+const cassandra = require('cassandra-driver');
+const uuidv1 = require('uuid/v1');
 
-const connection = mysql.createConnection(mysqlConfig);
 
-const getBookingsById = (homeId, callback) => {
-  const queryStr = 'SELECT * FROM `bookings` WHERE bookings.home_id = ?';
-  connection.query(queryStr, [homeId], (err, bookings) => {
-    if (err) {
-      callback(err);
-    } else {
-      callback(null, bookings);
-    }
-  });
-};
+const client = new cassandra.Client({
+    contactPoints : ['127.0.0.1'],
+    localDataCenter : 'datacenter1'
+})
 
-const getPricingById = (homeId, callback) => {
-  const queryStr = 'SELECT * FROM `prices` WHERE bookings.home_id = ?';
-  connection.query(queryStr, [homeId], (err, pricing) => {
-    if (err) {
-      callback(err);
-    } else {
-      callback(null, pricing);
-    }
-  });
-};
-
-const createBooking = (booking, callback) => {
-  const queryStr = 'INSERT INTO `bookings` (home_id, user_id, check_in, check_out, price_per_night, no_guests) VALUES (?, ?, ?, ?, ?, ?)';
-  connection.query(queryStr, booking, (err) => {
-    if (err) {
-      callback(err);
-    } else {
-      callback(null);
-    }
-  });
-};
-
-const changeBooking = (bookingId, callback) => {
-  const changedQuery = `UPDATE bookings SET user_id = ${booking.userId}, check_in = ${booking.checkIn}, check_out = ${booking.checkOut}, price_per_night = ${booking.price}, no_guests = ${booking.guest}  WHERE booking_id = ${booking.bookingId}` 
-  connection.query(changedQuery, (err, booking) => {
-    if (err) {
-      callback(err, null)
-      return;
-    } else {
-      callback(null, booking)
-    }
-  })
-}
-
-const deleteBooking = (bookingId, callback) => {
-  const deleteQuery = `DELETE FROM booking where booking_id = ${bookingId.home}`
-  connection.query(deleteQuery, (err, booking) => {
+let getBookingsById = (homeId, callback) => {
+  let bookingDates = `SELECT * FROM booking_request.bookings WHERE homeId = ${homeId}`
+  client.execute(bookingDates, (err, dates) =>{
     if (err){
+      console.log(err);
       callback(err, null)
       return;
     }
-    callback(null, booking)
+    callback(null, dates)
   })
 }
+
+let postingNewDate = (userInfo) => {
+  let newBookingInformation = `INSERT INTO booking_request.bookings (booking_id, homeId, userId, checkIn, checkOut, pricePerNight, noGuests) VALUES (${uuidv1()}, ${userInfo.bookingId}, ${userInfo.homeId},
+                               ${userInfo.checkIn}, ${userInfo.checkOut}, ${userInfo.pricePerNight}, ${userInfo.noGuests})`
+  client.execute(newBookingInformation, (err, data) => {
+    if (err){
+      console.log(err);
+      return
+    }
+    console.log('Successfully saved to bookings', data);
+  })
+}
+
 
 module.exports = {
-  getBookingsById,
-  getPricingById,
-  createBooking,
-  changeBooking,
-  deleteBooking
-};
+    getBookingsById,
+    postingNewDate
+}
