@@ -253,7 +253,8 @@ export default class BookingWidget extends React.Component {
         <Wrapper>
           <PricePerNight>
             <span>
-              <Price>$122</Price>
+              {console.log(this.props.user)}
+              <Price>${this.props.userData['rows'][0]['pricepernight']}</Price>
             </span>
             <Text>per night</Text>
             <div>
@@ -309,7 +310,7 @@ export default class BookingWidget extends React.Component {
               <Box>
                 <div>
                   <Select value={this.state.guests.text} onChange={this.selectGuests}>
-                    <option value="1 guest">1 guest</option>
+                    <option value="1 guest">1 guests</option>
                     <option value="2 guests">2 guests</option>
                     <option value="3 guests">3 guests</option>
                     <option value="4 guests">4 guests</option>
