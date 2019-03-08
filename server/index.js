@@ -3,6 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const expressStaticGzip = require('express-static-gzip');
+// const httpProxy = require('http-proxy');
 
 const db = require('../database/index.js');
 const { cal } = require('./calendarHelper');
@@ -22,6 +23,7 @@ app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
+
 
 
 
