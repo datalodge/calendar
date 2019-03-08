@@ -7,6 +7,8 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       calendar: null,
+      bookingFound : false,
+      bookingInfo: []
     };
     this.postBooking = this.postBooking.bind(this);
   }
@@ -18,17 +20,25 @@ export default class App extends React.Component {
        } else {
         window.location = window.location.href + "?100";
        }
-      //  let endpoint = 'http://localhost:3002/api/bookings/' + window.location.pathname +
       let endpoint = 'http://localhost:3002/api/bookings/'
-      console.log(endpoint + homeId)
     fetch(endpoint + homeId)
       .then(response =>  response.json())
       .then(JSONresp => JSONresp)
       .then((calendar) => {
-        console.log(calendar, 'this is the calendar')
+        // console.log(calendar, 'this is the calendar')
         this.setState({
           calendar: calendar,
         });
+      })
+      .catch(error => console.error(error));
+
+      fetch('http://localhost:3002/api/bookingInfo/' + homeId)
+      .then(response =>  response.json())
+      .then((dataInfo) => {
+        this.setState({
+          bookingInfo : dataInfo,
+          bookingFound: true
+        })
       })
       .catch(error => console.error(error));
   }
@@ -44,7 +54,7 @@ export default class App extends React.Component {
       },
     })
       .then((response) => {
-        console.log(response, 'this is the response')
+        // console.log(response, 'this is the response')
         return response.json();
       })
   }
@@ -60,12 +70,16 @@ export default class App extends React.Component {
     }
     return (
       <div>
+        {this.state.bookingFound ? 
         <div>
           <BookingWidget
             calendar={calendar}
             postBooking={this.postBooking}
+            userData = {this.state.bookingInfo}
           />
         </div>
+        : null
+        }
       </div>
     );
   }

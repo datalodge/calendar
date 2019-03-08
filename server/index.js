@@ -1,3 +1,4 @@
+const newRelic = require('newrelic');
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
@@ -41,13 +42,29 @@ app.get('/api/bookings/:homeId', (req, res) => {
 });
 
 
-app.post('/api/bookings', (req, res) => {
-  const booking = req.body.booking;
-  db.postingNewDate(booking, (err) => {
+app.get('/api/bookingInfo/:homeId', (req, res) => {
+  db.getBookingsById(req.params.homeId, (err, bookings) => {
+    if (err) {
+      console.log('err from db');
+    } else {
+      res.status(200).send(bookings)
+    }
+  });
+});
+
+
+
+app.post('/api/booking', (req, res) => {
+  // console.log(req.body)
+  // res.status(201).end()
+  // console.log('post request is getting hit ')
+  db.postingNewDate(req.body, (err, data) => {
     if (err) {
       res.status(400).end()
+      return;
     } else {
-      res.status(200).send('success');
+      // console.log('successfully posted')
+      res.status(201).end();
     }
   });
 });

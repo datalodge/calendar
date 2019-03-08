@@ -11,7 +11,7 @@ const cal = (bookings, callback) => {
     const days = [];
     const month = [[], [], [], [], [], []];
     const bookingsArr = JSON.parse(JSON.stringify(bookings));
-
+    // console.log(bookingsArr, 'this is bookingArrs')
     for (let j = 0; j < 42; j += 1) {
       const day = {
         val: null,
@@ -23,8 +23,8 @@ const cal = (bookings, callback) => {
         day.val = days[j - 1].val.clone().add(1, 'days');
       }
       for (let k = 0; k < bookingsArr.length; k += 1) {
-        const checkIn = moment(bookingsArr[k].check_in);
-        const checkOut = moment(bookingsArr[k].check_out);
+        const checkIn = moment(bookingsArr[k].checkin);
+        const checkOut = moment(bookingsArr[k].checkout);
         if (day.val !== null) {
           if (day.val < moment().subtract(1, 'd')) {
             day.status = 'in past';
