@@ -1,6 +1,6 @@
 const moment = require('moment');
 const fs = require('fs');
-const ws = fs.createWriteStream('data.csv');
+const ws = fs.createWriteStream('ten.csv');
 const uuidv1 = require('uuid/v1');
 
 let randomDays = function(){
@@ -17,7 +17,7 @@ let randomBookingGenerator = function(){
 
 let string = '';
 ws.write('UUID,homeId,userId,checkIn,checkOut,price,guest \n');
-for (let i = 1; i <= 10000000; i++) {
+for (let i = 9000001; i <= 10000000; i++) {
   let randomBooking = randomBookingGenerator()
   let check_in = moment().clone().add(randomDays(), 'days');
   let check_out = null;
@@ -36,7 +36,7 @@ for (let i = 1; i <= 10000000; i++) {
     string = '';
   }
 
-  if (i % 1000000 === 0){
+  if (i % 500000 === 0){
     console.log(i)
   }
 }

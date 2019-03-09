@@ -45,7 +45,7 @@ export default class App extends React.Component {
 
   postBooking(booking) {
     console.log(`${booking} was sent`);
-    fetch('http://ec2-18-191-62-37.us-east-2.compute.amazonaws.com/api/bookings/', {
+    fetch('/api/bookings/', {
       method: 'POST',
       mode: 'no-cors',
       body: JSON.stringify({booking: booking}),
