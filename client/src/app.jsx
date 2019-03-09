@@ -20,7 +20,7 @@ export default class App extends React.Component {
        } else {
         window.location = window.location.href + "?100";
        }
-      let endpoint = 'http://localhost:3002/api/bookings/'
+      let endpoint = '/api/bookings/'
     fetch(endpoint + homeId)
       .then(response =>  response.json())
       .then(JSONresp => JSONresp)
@@ -32,7 +32,7 @@ export default class App extends React.Component {
       })
       .catch(error => console.error(error));
 
-      fetch('http://localhost:3002/api/bookingInfo/' + homeId)
+      fetch('/api/bookingInfo/' + homeId)
       .then(response =>  response.json())
       .then((dataInfo) => {
         this.setState({
