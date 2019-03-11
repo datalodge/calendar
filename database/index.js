@@ -11,7 +11,7 @@ const client = new cassandra.Client({
 })
 
 let getBookingsById = (homeId, callback) => {
-  let bookingDates = `SELECT * FROM booking_request.bookings WHERE homeId = ${homeId}`
+  let bookingDates = `SELECT * FROM bookings WHERE homeId = ${homeId}`
   client.execute(bookingDates, (err, dates) =>{
     // console.log(dates, 'here are booking dates')
     if (err){
