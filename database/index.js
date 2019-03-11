@@ -2,16 +2,16 @@ const cassandra = require('cassandra-driver');
 const uuidv1 = require('uuid/v1');
 
 
-//all Contact points  contactPoints : ['172.31.17.162:9042', '172.31.19.180:9042'],
+//all Contact points  contactPoints : ['172.31.17.162:9042', '172.31.20.14:9042'],
 
 
 const client = new cassandra.Client({
-  contactPoints : ['172.31.17.162:9042', '172.31.19.180:9042'],
+  contactPoints : ['172.31.17.162:9042' ,  '172.31.20.14:9042'],
   localDataCenter : 'datacenter1'
 })
 
 let getBookingsById = (homeId, callback) => {
-  let bookingDates = `SELECT * FROM bookings WHERE homeId = ${homeId}`
+  let bookingDates = `SELECT * FROM booking_request.bookings WHERE homeId = ${homeId}`
   client.execute(bookingDates, (err, dates) =>{
     // console.log(dates, 'here are booking dates')
     if (err){
