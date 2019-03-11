@@ -6,8 +6,8 @@ const uuidv1 = require('uuid/v1');
 
 
 const client = new cassandra.Client({
-  contactPoints : ['172.31.17.162:9042' ,  '172.31.20.14:9042'],
-  localDataCenter : 'datacenter1'
+  contactPoints : ['172.31.16.252:9042'],
+  localDataCenter : 'us-west-2'
 })
 
 let getBookingsById = (homeId, callback) => {
