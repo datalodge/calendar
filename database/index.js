@@ -6,7 +6,7 @@ const uuidv1 = require('uuid/v1');
 
 
 const client = new cassandra.Client({
-  contactPoints : ['172.31.25.51, 172.31.30.175'],
+  contactPoints : ['172.31.25.51', '172.31.30.175'],
   localDataCenter : 'us-west-2'
 })
 
