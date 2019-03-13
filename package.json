@@ -11,13 +11,9 @@
   "scripts": {
     "build": "webpack -p",
     "seedcsv": "database/mockDataGenerator.js",
-    "seed": "mysql -u root -p < database/booking-schema.sql",
     "start": "node server/index.js",
     "dev:server": "nodemon server/index.js",
-    "dev:react": "webpack -d --watch",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage --colors"
+    "dev:react": "webpack -d --watch"
   },
   "dependencies": {
     "cassandra-driver": "^4.0.0",
@@ -53,7 +49,6 @@
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-react": "^7.12.4",
     "http-proxy-middleware": "^0.19.1",
-    "jest": "^24.1.0",
     "react-test-renderer": "^16.8.2",
     "sublime-linter": "^0.4.1",
     "webpack": "^4.29.3",
